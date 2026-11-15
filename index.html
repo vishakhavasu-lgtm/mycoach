@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f6f2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="MyCoach" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="description" content="A calm, personal fitness and nutrition companion." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>MyCoach</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="wordmark" data-nav="today" aria-label="Go to Today"><span class="mark">m.</span><span>mycoach</span></button>
+      <div class="top-actions"><span class="date-label" id="todayDate"></span><button class="icon-button" id="settingsShortcut" aria-label="Open settings">⚙</button></div>
+    </header>
+
+    <main id="appMain" tabindex="-1">
+      <section class="screen active" id="screen-today" aria-labelledby="todayTitle">
+        <div class="greeting-row">
+          <div><p class="eyebrow" id="todayGreeting">YOUR PERSONAL SPACE</p><h1 id="todayTitle">A good day to show up.</h1><p class="muted" id="todaySubline">One session at a time. No need to do everything perfectly.</p></div>
+        </div>
+        <article class="today-focus card">
+          <div class="focus-top"><span class="eyebrow">TODAY'S PLAN</span><span class="soft-pill" id="todayPlanLabel">Strength · 60 min</span></div>
+          <h2 id="todayWorkoutTitle">Lower Body — Quads</h2>
+          <p id="todayWorkoutDescription" class="muted">A beginner-friendly strength session.</p>
+          <div class="focus-bottom"><span class="muted small" id="todayWorkoutMeta">5 exercises · Beginner</span><button class="button button-dark" id="startTodayWorkout">View workout <span aria-hidden="true">→</span></button></div>
+        </article>
+        <div class="section-heading"><h2>Your day</h2><span class="muted small" id="dayOfWeek"></span></div>
+        <div class="quick-list">
+          <button class="quick-row" data-nav="food"><span class="quick-icon">＋</span><span class="quick-copy"><strong>Food log</strong><small id="todayFoodSummary">Start with your first meal</small></span><span class="row-end" id="todayCalories">0 kcal</span><span class="chevron">›</span></button>
+          <button class="quick-row" data-nav="recovery"><span class="quick-icon">◌</span><span class="quick-copy"><strong>Recovery</strong><small id="todayRecoverySummary">Connect WHOOP or add a check-in</small></span><span class="row-end" id="todayRecoveryValue">—</span><span class="chevron">›</span></button>
+          <button class="quick-row" data-nav="cycle"><span class="quick-icon">○</span><span class="quick-copy"><strong>Cycle</strong><small id="todayCycleSummary">Add your period dates</small></span><span class="row-end" id="todayCycleValue">—</span><span class="chevron">›</span></button>
+        </div>
+        <div class="section-heading spaced"><h2>This week</h2><button class="text-button" data-nav="train">See plan →</button></div>
+        <div class="week-glance" id="weekGlance"></div>
+      </section>
+
+      <section class="screen" id="screen-train" aria-labelledby="trainTitle">
+        <div class="page-heading"><p class="eyebrow">YOUR TRAINING</p><h1 id="trainTitle">This week</h1><p class="muted">A flexible five-day plan. Pilates stays optional.</p></div>
+        <div class="week-list" id="weekList"></div>
+        <div class="note-card"><span class="note-dot"></span><div><strong>Make it work for your day.</strong><p class="muted">If a machine is busy or unfamiliar, choose a listed dumbbell alternative. You don't need to force an exercise.</p></div></div>
+      </section>
+
+      <section class="screen" id="screen-workout" aria-labelledby="workoutTitle">
+        <button class="back-button" data-back="train">← <span>Training plan</span></button>
+        <div class="page-heading compact"><p class="eyebrow" id="workoutDayLabel">MONDAY · STRENGTH</p><h1 id="workoutTitle">Lower Body — Quads</h1><p class="muted" id="workoutSummary">About 60 minutes · 5 exercises</p></div>
+        <div id="workoutExerciseList" class="exercise-list"></div>
+        <div class="workout-footer"><button class="button button-dark full" id="beginGuidedWorkout">Start guided workout</button><p class="fine-print">No countdowns or set timers. Just coaching, logging and the next exercise.</p></div>
+      </section>
+
+      <section class="screen" id="screen-coach" aria-labelledby="coachTitle">
+        <button class="back-button" data-back="workout">← <span>Workout overview</span></button>
+        <div class="coach-progress"><span id="coachPosition">EXERCISE 1 OF 5</span><span id="coachMuscle" class="soft-pill">Quads</span></div>
+        <div class="coach-visual" id="coachVisual"><div class="visual-placeholder"><span class="visual-icon">↗</span><span>Exercise demonstration</span><small>Open the demo guide for a video reference</small></div></div>
+        <div class="coach-title-row"><div><h1 id="coachTitle">Leg Press</h1><p class="muted" id="coachPrescription">3 sets · 10–12 reps</p></div><button class="round-button" id="coachAlternatives" title="Alternatives">⇄</button></div>
+        <div class="coach-tabs"><button class="tab active" data-coach-tab="coach">Coach</button><button class="tab" data-coach-tab="setup">Setup</button><button class="tab" data-coach-tab="tips">Tips</button></div>
+        <div class="coach-copy" id="coachCopy"></div>
+        <div class="set-log card" id="setLog"></div>
+        <div class="coach-actions"><button class="button button-quiet" id="speakCoach">▶ Play voice</button><button class="button button-dark" id="completeExercise">Complete · Next →</button></div>
+        <button class="text-button centered" id="skipExercise">Skip this exercise</button>
+      </section>
+
+      <section class="screen" id="screen-alternatives" aria-labelledby="alternativesTitle">
+        <button class="back-button" data-back="coach">← <span>Exercise</span></button>
+        <div class="page-heading compact"><p class="eyebrow">EQUIPMENT FLEXIBILITY</p><h1 id="alternativesTitle">Choose an alternative</h1><p class="muted" id="alternativesSubtitle">For Leg Press · similar muscle focus</p></div>
+        <div id="alternativeList" class="alternative-list"></div>
+        <p class="fine-print">Alternatives train a similar movement or muscle group, but they aren't always identical. Choose the version you can perform comfortably with good form.</p>
+      </section>
+
+      <section class="screen" id="screen-food" aria-labelledby="foodTitle">
+        <div class="page-heading"><p class="eyebrow">NUTRITION · SIMPLE TRACKING</p><h1 id="foodTitle">Food</h1><p class="muted" id="foodDate"></p></div>
+        <div class="nutrition-summary card">
+          <div class="summary-line"><div><span class="eyebrow">CALORIES LOGGED</span><div class="big-number"><span id="caloriesTotal">0</span><small> / <span id="calorieGoal">not set</span> kcal</small></div></div><div class="protein-block"><span class="eyebrow">PROTEIN</span><div class="protein-number"><span id="proteinTotal">0</span><small> / <span id="proteinGoal">not set</span> g</small></div></div></div>
+          <div class="meter"><span id="calorieMeter"></span></div>
+          <div class="meter-labels"><span>Daily estimate</span><span id="caloriePercent">0%</span></div>
+        </div>
+        <div class="section-heading"><h2>Meals</h2><button class="text-button" id="clearFoodDay">Clear day</button></div>
+        <div id="mealList" class="meal-list"></div>
+        <button class="button button-outline full add-food-button" id="openAddFood">＋ Add food</button>
+        <div class="note-card subtle-note"><span class="note-dot"></span><div><strong>Estimates, not exact science.</strong><p class="muted">For mixed office meals, adjust portions and ingredients where you know them. You can add photo-based estimates in a later version.</p></div></div>
+      </section>
+
+      <section class="screen" id="screen-progress" aria-labelledby="progressTitle">
+        <div class="page-heading"><p class="eyebrow">YOUR CONSISTENCY</p><h1 id="progressTitle">Progress</h1><p class="muted">Small improvements count.</p></div>
+        <div class="progress-stats" id="progressStats"></div>
+        <div class="section-heading"><h2>Training history</h2><span class="muted small">This week</span></div>
+        <div id="trainingHistory" class="history-list"></div>
+        <div class="card weigh-card"><div><h3>Weight check-in</h3><p class="muted small">Only log when it feels useful.</p></div><div class="weight-entry"><input id="weightInput" type="number" min="30" max="250" step="0.1" placeholder="kg" inputmode="decimal"><button class="button button-dark" id="saveWeight">Save</button></div><p class="muted small" id="weightHistory"></p></div>
+        <button class="button button-outline full" id="weeklyReview">Review my week</button>
+      </section>
+
+      <section class="screen" id="screen-recovery" aria-labelledby="recoveryTitle">
+        <button class="back-button" data-back="today">← <span>Today</span></button>
+        <div class="page-heading compact"><p class="eyebrow">RECOVERY</p><h1 id="recoveryTitle">Your recovery</h1><p class="muted">WHOOP data will appear here after you connect it.</p></div>
+        <div class="integration-card card"><div class="integration-head"><div><strong>WHOOP</strong><p class="muted small">Recovery · Sleep · HRV · Resting heart rate</p></div><span class="status-tag" id="whoopStatus">Not connected</span></div><button class="button button-outline full" id="whoopConnect">Connect WHOOP</button><p class="fine-print">This prototype does not send your data anywhere. A real connection needs a WHOOP developer app, secure OAuth and a backend.</p></div>
+        <div class="section-heading"><h2>Manual check-in</h2><span class="muted small">Optional</span></div>
+        <div class="form-card card"><label>Recovery score (%)<input id="recoveryScore" type="number" min="0" max="100" placeholder="e.g. 78"></label><label>Sleep (hours)<input id="sleepHours" type="number" min="0" max="24" step="0.1" placeholder="e.g. 7.5"></label><label>HRV (ms)<input id="hrvValue" type="number" min="0" placeholder="Optional"></label><button class="button button-dark full" id="saveRecovery">Save check-in</button></div>
+        <p class="fine-print">Recovery scores are context, not a diagnosis. Your own symptoms and comfort take priority over a wearable score.</p>
+      </section>
+
+      <section class="screen" id="screen-cycle" aria-labelledby="cycleTitle">
+        <button class="back-button" data-back="today">← <span>Today</span></button>
+        <div class="page-heading compact"><p class="eyebrow">CYCLE AWARENESS</p><h1 id="cycleTitle">Your cycle</h1><p class="muted">A simple calendar reference, not a rulebook.</p></div>
+        <div class="integration-card card"><div class="integration-head"><div><strong>Flo history</strong><p class="muted small">Import a JSON export from Flo</p></div><span class="status-tag" id="floStatus">Not imported</span></div><label class="file-picker">Choose Flo JSON export<input id="floImport" type="file" accept=".json,application/json"></label><p class="fine-print">We don't have a direct Flo API connection in this prototype. Import stays on this device.</p></div>
+        <div class="form-card card"><h3>Cycle settings</h3><label>Last period start date<input type="date" id="periodStart"></label><label>Typical cycle length (days)<input type="number" min="18" max="45" id="cycleLength" value="28"></label><button class="button button-dark full" id="saveCycle">Save cycle settings</button></div>
+        <div class="cycle-summary card" id="cycleSummary"><span class="eyebrow">YOUR PLAN</span><h3>Rest on your hardest days.</h3><p class="muted">You told me your first two period days can involve severe pain and faintness. The training plan will mark those days as rest by default.</p></div>
+        <p class="fine-print">If you actually lose consciousness, or have severe pain with vomiting or faintness, please seek medical assessment rather than relying on cycle-based workout adjustments.</p>
+      </section>
+
+      <section class="screen" id="screen-you" aria-labelledby="youTitle">
+        <div class="page-heading"><p class="eyebrow">YOUR SETTINGS</p><h1 id="youTitle">You</h1><p class="muted">Make this feel like your space.</p></div>
+        <div class="form-card card"><h3>Profile</h3><div class="two-fields"><label>Age<input id="profileAge" type="number" min="16" max="100"></label><label>Height (cm)<input id="profileHeight" type="number" min="100" max="230"></label></div><div class="two-fields"><label>Weight (kg)<input id="profileWeight" type="number" min="30" max="250" step="0.1"></label><label>Calorie goal (optional)<input id="profileCalories" type="number" min="800" max="5000" step="50" placeholder="Leave blank for now"></label></div><label>Protein goal (optional, g)<input id="profileProtein" type="number" min="20" max="300" placeholder="Leave blank for now"></label><p class="muted small" id="bmiValue">BMI: —</p><button class="button button-dark full" id="saveProfile">Save profile</button></div>
+        <div class="section-heading"><h2>Data & connections</h2></div>
+        <div class="settings-list"><button class="quick-row" data-nav="recovery"><span class="quick-icon">◌</span><span class="quick-copy"><strong>WHOOP</strong><small>Recovery and sleep data</small></span><span class="chevron">›</span></button><button class="quick-row" data-nav="cycle"><span class="quick-icon">○</span><span class="quick-copy"><strong>Flo</strong><small>Import cycle history</small></span><span class="chevron">›</span></button><button class="quick-row" id="exportData"><span class="quick-icon">↓</span><span class="quick-copy"><strong>Export my data</strong><small>Download a backup JSON file</small></span><span class="chevron">›</span></button><button class="quick-row" id="importBackup"><span class="quick-icon">↑</span><span class="quick-copy"><strong>Restore backup</strong><small>Import a previous backup</small></span><span class="chevron">›</span></button><input type="file" id="backupFile" accept=".json,application/json" hidden></div>
+        <div class="note-card"><span class="note-dot"></span><div><strong>Your data stays on this device.</strong><p class="muted">This starter stores information in this browser on this phone. It is not encrypted cloud storage and won't automatically sync to another device. Export a backup regularly.</p></div></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-nav="today"><span>⌂</span><small>Today</small></button>
+      <button class="nav-item" data-nav="train"><span>⌁</span><small>Train</small></button>
+      <button class="nav-item" data-nav="food"><span>◒</span><small>Food</small></button>
+      <button class="nav-item" data-nav="progress"><span>▥</span><small>Progress</small></button>
+      <button class="nav-item" data-nav="you"><span>○</span><small>You</small></button>
+    </nav>
+  </div>
+
+  <dialog id="addFoodDialog" class="modal">
+    <form method="dialog" class="modal-card" id="foodForm">
+      <div class="modal-heading"><div><p class="eyebrow">FOOD LOG</p><h2>Add food</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+      <label>Meal<input id="foodName" placeholder="e.g. Dal, rice and sabzi" required></label>
+      <div class="two-fields"><label>Calories (kcal)<input id="foodCalories" type="number" min="0" max="5000" placeholder="e.g. 450" required></label><label>Protein (g)<input id="foodProtein" type="number" min="0" max="300" placeholder="e.g. 18"></label></div>
+      <label>Meal type<select id="foodMeal"><option>Breakfast</option><option>Lunch</option><option selected>Snack</option><option>Dinner</option></select></label>
+      <p class="fine-print">Use estimates for homemade or office meals. You can edit or remove entries later.</p>
+      <div class="modal-actions"><button class="button button-quiet" value="cancel">Cancel</button><button class="button button-dark" id="saveFood" value="default">Add to log</button></div>
+    </form>
+  </dialog>
+  <dialog id="reviewDialog" class="modal"><div class="modal-card"><div class="modal-heading"><div><p class="eyebrow">WEEKLY CHECK-IN</p><h2>Your week</h2></div><button class="icon-button" id="closeReview">×</button></div><div id="reviewContent" class="review-content"></div><button class="button button-dark full" id="doneReview">Done</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
