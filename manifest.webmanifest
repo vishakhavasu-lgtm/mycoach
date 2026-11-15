@@ -1,0 +1,14 @@
+{
+  "name": "MyCoach — Personal Fitness",
+  "short_name": "MyCoach",
+  "description": "A calm, personal fitness and nutrition companion.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f6f2",
+  "theme_color": "#f7f6f2",
+  "orientation": "portrait",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+  ]
+}
